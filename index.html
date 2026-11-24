@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>My Apps — Không gian Ứng dụng Gia đình</title>
+  <meta name="description" content="Cổng khởi chạy nhanh các ứng dụng web tĩnh (PWA) cá nhân và gia đình trên iPhone, iPad & Android.">
+
+  <!-- iOS / iPadOS Standalone PWA Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="My Apps">
+  <meta name="theme-color" content="#090D16">
+
+  <!-- Relative Icons & Manifest for GitHub Pages Compatibility -->
+  <link rel="icon" type="image/svg+xml" href="./assets/icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/portal.css">
+</head>
+<body>
+  <div class="ambient-mesh" aria-hidden="true"></div>
+
+  <div class="portal-shell">
+    <header class="portal-header">
+      <div class="brand-row">
+        <div class="brand-mark">
+          <img src="./assets/icons/icon.svg" alt="My Apps Icon" width="48" height="48">
+        </div>
+        <div class="brand-copy">
+          <div class="eyebrow">
+            <span class="status-dot" id="networkDot"></span>
+            <span id="networkLabel">PWA FAMILY HUB • OFFLINE READY</span>
+          </div>
+          <h1 id="portalTitle">My Apps</h1>
+        </div>
+        <button type="button" class="install-trigger" id="openInstallGuideBtn" aria-label="Hướng dẫn cài ứng dụng">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12m0 0l-4-4m4 4l4-4"/>
+            <path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+          </svg>
+          <span>Cài App</span>
+        </button>
+      </div>
+      <p class="portal-subtitle" id="portalSubtitle">
+        Chạm để mở nhanh ứng dụng hoặc thêm trực tiếp từng app ra Màn hình chính iPhone, iPad &amp; Android.
+      </p>
+
+      <nav class="category-bar" id="categoryBar" aria-label="Phân loại ứng dụng"></nav>
+    </header>
+
+    <main class="portal-main">
+      <section aria-labelledby="activeSectionHeading">
+        <div class="section-head">
+          <h2 id="activeSectionHeading">Ứng dụng sẵn sàng</h2>
+          <span class="count-pill" id="activeCountPill">1 app</span>
+        </div>
+        <div class="apps-grid" id="activeAppsGrid">
+          <!-- Populated dynamically from ./apps.json -->
+        </div>
+      </section>
+
+      <section class="planned-section" id="plannedSection" aria-labelledby="plannedSectionHeading" hidden>
+        <div class="section-head">
+          <h2 id="plannedSectionHeading">Kệ mở rộng tiếp theo</h2>
+          <span class="mono-hint">Đăng ký qua apps.json</span>
+        </div>
+        <div class="planned-grid" id="plannedAppsGrid"></div>
+      </section>
+    </main>
+
+    <footer class="portal-footer">
+      <div class="arch-note">
+        <span class="code-tag">./apps.json</span>
+        <span>Thêm app mới chỉ cần tạo thư mục con độc lập &amp; khai báo vào danh sách.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Install Guide Modal for iOS Safari / Android Chrome -->
+  <div class="modal-backdrop" id="installModal" hidden>
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="installModalTitle">
+      <div class="modal-handle" aria-hidden="true"></div>
+      <div class="modal-top">
+        <div>
+          <span class="modal-kicker">CHUẨN PWA TOÀN MÀN HÌNH</span>
+          <h3 id="installModalTitle">Cài ra Màn hình chính</h3>
+        </div>
+        <button type="button" class="close-btn" id="closeInstallModalBtn" aria-label="Đóng">✕</button>
+      </div>
+
+      <p class="modal-lead">
+        Mỗi ứng dụng trong kho (như <strong>Gym Cardio Coach</strong>) đều có biểu tượng và bộ nhớ Offline riêng. Bạn có thể mở thẳng ứng dụng đó rồi cài riêng từng biểu tượng ngoài màn hình điện thoại!
+      </p>
+
+      <button type="button" class="native-install-btn" id="nativeInstallBtn" hidden>
+        ⚡ Cài đặt ngay trên thiết bị này
+      </button>
+
+      <div class="guide-cards">
+        <div class="guide-card">
+          <div class="guide-platform">🍎 iPhone 13 Pro &amp; iPad (Safari)</div>
+          <ol>
+            <li>Mở trang này (hoặc vào thẳng <strong>Gym Cardio Coach</strong>) bằng trình duyệt <strong>Safari</strong>.</li>
+            <li>Chạm nút <strong>Chia sẻ (Share ↑)</strong> ở thanh dưới cùng màn hình.</li>
+            <li>Cuộn xuống chọn <strong>Thêm vào MH chính (Add to Home Screen)</strong> → bấm <strong>Thêm (Add)</strong>.</li>
+          </ol>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-platform">🤖 Điện thoại Android (Chrome)</div>
+          <ol>
+            <li>Mở ứng dụng cần cài trên <strong>Google Chrome</strong>.</li>
+            <li>Chạm biểu tượng <strong>⋮ (Menu góc trên phải)</strong>.</li>
+            <li>Chọn <strong>Cài đặt ứng dụng (Install app)</strong> hoặc <strong>Thêm vào Màn hình chính</strong>.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/portal.js" defer></script>
+</body>
+</html>

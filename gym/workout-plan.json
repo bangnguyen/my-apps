@@ -1,0 +1,167 @@
+{
+  "id": "pha-cardio-40m-v1",
+  "title": "Gym Cardio Coach • 40 Phút PHA",
+  "goal": "Đốt năng lượng tối đa 8 vòng liên hoàn & hỗ trợ ngủ sâu giấc buổi tối",
+  "warmup": {
+    "title": "Khởi động làm nóng",
+    "enTitle": "Dynamic Warm-up",
+    "durationSec": 180,
+    "segments": [
+      {
+        "fromSec": 0,
+        "toSec": 60,
+        "cue": "Xoay kỹ khớp cổ tay, khuỷu tay, vai, hông và khớp gối"
+      },
+      {
+        "fromSec": 60,
+        "toSec": 120,
+        "cue": "Nâng cao đùi tại chỗ đều nhịp để làm nóng tim mạch"
+      },
+      {
+        "fromSec": 120,
+        "toSec": 180,
+        "cue": "Mở rộng khớp ngực - vai & kiểm tra chốt tạ Vòng 1 (20 kg)"
+      }
+    ]
+  },
+  "cooldown": {
+    "title": "Hạ nhiệt & Giãn cơ",
+    "enTitle": "Cool-down & Stretch",
+    "durationSec": 180,
+    "segments": [
+      {
+        "fromSec": 0,
+        "toSec": 60,
+        "cue": "Đi lại nhẹ nhàng, hít sâu bằng mũi 4 giây — thở chậm 6 giây"
+      },
+      {
+        "fromSec": 60,
+        "toSec": 120,
+        "cue": "Giãn cơ ngực hai bên và treo thả lỏng giãn cơ xô lưng"
+      },
+      {
+        "fromSec": 120,
+        "toSec": 180,
+        "cue": "Giãn cơ đùi trước & thả lỏng thắt lưng giúp ngủ sâu giấc"
+      }
+    ]
+  },
+  "exercises": {
+    "bench_press": {
+      "id": "bench_press",
+      "name": "Đẩy ngực nằm",
+      "shortVoice": "đẩy ngực",
+      "enName": "Bench Press",
+      "equipment": "Ghế tạ đẩy nằm",
+      "availableWeights": [20, 30, 40],
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 30,
+      "tempoLabels": ["Hạ tạ", "Chạm ngực", "Đẩy lên"],
+      "formTip": "Hạ thanh đòn có kiểm soát, thở ra khi đẩy lên"
+    },
+    "lat_pulldown": {
+      "id": "lat_pulldown",
+      "name": "Kéo xô",
+      "shortVoice": "kéo xô",
+      "enName": "Lat Pulldown",
+      "equipment": "Giàn kéo xô",
+      "availableWeights": [20, 30],
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 30,
+      "tempoLabels": ["Kéo xuống", "Siết xô", "Thả chậm"],
+      "formTip": "Ưỡn ngực mở vai, kéo thanh đòn về sát xương đòn"
+    },
+    "leg_extension": {
+      "id": "leg_extension",
+      "name": "Đá đùi trước",
+      "shortVoice": "đá đùi trước",
+      "enName": "Leg Extension",
+      "equipment": "Ghế đa năng",
+      "availableWeights": [20],
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 30,
+      "tempoLabels": ["Đá lên", "Siết đùi", "Hạ chậm"],
+      "formTip": "Duỗi thẳng gối siết cơ đùi trước, không thả rơi tạ"
+    },
+    "crunch": {
+      "id": "crunch",
+      "name": "Gập bụng liên tục",
+      "shortVoice": "gập bụng",
+      "enName": "Ab Crunch",
+      "equipment": "Ghế tập bụng",
+      "availableWeights": [0],
+      "reps": 15,
+      "secPerRep": 2,
+      "restAfterSec": 35,
+      "tempoLabels": ["Gập lên", "Hạ xuống"],
+      "formTip": "Thở ra cuộn cơ bụng liên tục, giữ cằm thoáng không kéo cổ"
+    }
+  },
+  "exerciseOrder": [
+    "bench_press",
+    "lat_pulldown",
+    "leg_extension",
+    "crunch"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "phaseLabel": "Làm nóng",
+      "enPhaseLabel": "Warm Build",
+      "weights": { "bench_press": 20, "lat_pulldown": 20, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 2,
+      "phaseLabel": "Làm nóng",
+      "enPhaseLabel": "Warm Build",
+      "weights": { "bench_press": 20, "lat_pulldown": 20, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 3,
+      "phaseLabel": "Tăng tải",
+      "enPhaseLabel": "Load Up",
+      "weights": { "bench_press": 30, "lat_pulldown": 20, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 4,
+      "phaseLabel": "Tăng tải",
+      "enPhaseLabel": "Load Up",
+      "weights": { "bench_press": 30, "lat_pulldown": 20, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 5,
+      "phaseLabel": "Đẩy nhịp",
+      "enPhaseLabel": "Tempo Push",
+      "weights": { "bench_press": 30, "lat_pulldown": 30, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 6,
+      "phaseLabel": "Đỉnh sức mạnh",
+      "enPhaseLabel": "Peak Power",
+      "weights": { "bench_press": 40, "lat_pulldown": 30, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 7,
+      "phaseLabel": "Duy trì bền bỉ",
+      "enPhaseLabel": "Endurance Hold",
+      "weights": { "bench_press": 30, "lat_pulldown": 30, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 35
+    },
+    {
+      "round": 8,
+      "phaseLabel": "Xả cơ về đích",
+      "enPhaseLabel": "Finish Flush",
+      "weights": { "bench_press": 20, "lat_pulldown": 20, "leg_extension": 20, "crunch": 0 },
+      "endRoundRestSec": 0
+    }
+  ]
+}

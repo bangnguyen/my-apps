@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Gym Cardio Coach — 40 Phút PHA</title>
+  <meta name="description" content="Huấn luyện viên tập Gym Cardio 40 phút (8 vòng liên hoàn) tại nhà với nhịp gỗ trầm ấm và giọng HLV Tiếng Việt.">
+
+  <!-- iOS Safari & Android Chrome Standalone PWA Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Gym Coach">
+  <meta name="theme-color" content="#07090E" id="metaThemeColor">
+
+  <!-- Relative Icons & Manifest for GitHub Pages Compatibility -->
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- Athletic High-Contrast Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Be+Vietnam+Pro:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-phase="ready">
+  <!-- Ambient Phase Aura -->
+  <div class="phase-aura" aria-hidden="true"></div>
+
+  <div class="coach-app">
+    <!-- Overall Session Progress Hairline -->
+    <div class="session-progress-track" aria-hidden="true">
+      <div class="session-progress-fill" id="sessionProgressFill"></div>
+    </div>
+
+    <!-- Top Telemetry Bar -->
+    <header class="top-bar">
+      <a href="../" class="back-hub-link" id="backHubLink" aria-label="Về cổng ứng dụng My Apps">
+        <span aria-hidden="true">←</span>
+        <span>Apps</span>
+      </a>
+
+      <div class="session-telemetry">
+        <span class="wake-badge" id="wakeBadge" title="Giữ màn hình luôn sáng khi tập">
+          <span class="wake-dot"></span>
+          <span id="wakeText">Màn hình tự giữ sáng</span>
+        </span>
+        <span class="total-clock" id="totalRemainingClock">40:29</span>
+      </div>
+
+      <button type="button" class="plan-btn" id="openPlanDrawerBtn" aria-label="Xem và tùy chỉnh giáo án">
+        <span>⚙ Giáo án</span>
+      </button>
+    </header>
+
+    <!-- 8-Round Pyramid Progress Strip -->
+    <div class="round-strip" id="roundStrip" role="navigation" aria-label="Tiến độ 8 vòng tập"></div>
+
+    <!-- Main Center Stage -->
+    <main class="stage" id="mainStage">
+      <!-- Phase Status Pill -->
+      <div class="phase-banner">
+        <span class="phase-pill" id="phasePill">SẴN SÀNG • 40 PHÚT PHA CARDIO</span>
+        <span class="round-sublabel" id="roundSublabel">Khởi động 3p • 8 Vòng • Hạ nhiệt 3p</span>
+      </div>
+
+      <!-- Audio Test Card (Shown prominently before starting, collapsible during workout) -->
+      <section class="audio-check-panel" id="audioCheckPanel" aria-label="Kiểm tra âm thanh trước khi tập">
+        <div class="audio-check-row">
+          <button type="button" class="test-audio-btn" id="testAudioBtn">
+            <span class="speaker-wave" aria-hidden="true">🔊</span>
+            <span>Nghe thử giọng &amp; âm thanh</span>
+          </button>
+          <span class="voice-engine-tag" id="voiceEngineTag">Đang kiểm tra giọng đọc...</span>
+        </div>
+        <p class="silent-hint">
+          💡 <strong>iPhone / iPad:</strong> Nhớ gạt tắt nút <em>Im lặng (chuông đỏ cạnh máy)</em> và tăng âm lượng để nghe rõ nhịp gỗ &amp; giọng HLV.
+        </p>
+      </section>
+
+      <!-- Active Exercise / Rest / Mobility Focal Display -->
+      <section class="focal-card" id="focalCard" aria-live="polite">
+        <!-- Headline Station & Weight -->
+        <div class="station-header" id="stationHeader">
+          <div class="station-title-wrap">
+            <span class="station-kicker" id="stationKicker">BÀI MỞ ĐẦU</span>
+            <h1 class="station-name" id="stationName">KHỞI ĐỘNG LÀM NÓNG</h1>
+          </div>
+          <div class="weight-callout" id="weightCallout" hidden>
+            <span class="weight-num" id="weightNum">20</span>
+            <span class="weight-unit" id="weightUnit">KG</span>
+          </div>
+        </div>
+
+        <!-- Giant Rep + Countdown Telemetry Grid -->
+        <div class="telemetry-hero" id="telemetryHero">
+          <!-- Rep Counter Block (Visible in WORK state) -->
+          <div class="rep-block" id="repBlock" hidden>
+            <span class="telemetry-label">NHỊP HIỆN TẠI</span>
+            <div class="rep-digits" id="repDigits">
+              <span class="rep-current" id="repCurrent">01</span>
+              <span class="rep-slash">/</span>
+              <span class="rep-total" id="repTotal">12</span>
+            </div>
+            <div class="tempo-dots" id="tempoDots" aria-hidden="true"></div>
+          </div>
+
+          <!-- Countdown Block (Always Ultra Large) -->
+          <div class="timer-block" id="timerBlock">
+            <span class="telemetry-label" id="timerLabel">THỜI GIAN HIỆP</span>
+            <div class="countdown-digits" id="countdownDigits">03:00</div>
+            <div class="step-progress-bar" aria-hidden="true">
+              <div class="step-progress-fill" id="stepProgressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rest-State Next Exercise & Plate Setup Card (Massive during Green Rest!) -->
+        <div class="next-setup-box" id="nextSetupBox">
+          <div class="next-setup-head">
+            <span class="next-kicker" id="nextKicker">CHUẨN BỊ TIẾP THEO</span>
+            <span class="weight-delta-badge" id="weightDeltaBadge" hidden>⚡ ĐỔI TẠ</span>
+          </div>
+          <div class="next-setup-main">
+            <div class="next-ex-info">
+              <div class="next-ex-name" id="nextExName">Vòng 1 • Đẩy ngực nằm</div>
+              <div class="next-ex-meta" id="nextExMeta">12 nhịp × 3 giây • Ghế tạ đẩy nằm</div>
+            </div>
+            <div class="next-weight-giant" id="nextWeightGiant">20 KG</div>
+          </div>
+        </div>
+
+        <!-- Coaching Form / Mobility Cue -->
+        <p class="coach-cue" id="coachCue">
+          Xoay kỹ khớp cổ tay, khuỷu tay, vai, hông và khớp gối trước khi vào 8 vòng liên hoàn.
+        </p>
+      </section>
+
+      <!-- Completed Celebration Summary (Shown when 40m finishes) -->
+      <section class="summary-card" id="summaryCard" hidden>
+        <div class="summary-medal" aria-hidden="true">🏆</div>
+        <h2>HOÀN THÀNH 8 VÒNG XUẤT SẮC!</h2>
+        <p class="summary-sub">Cơ thể đã đốt năng lượng tối đa và hạ nhịp tim an toàn — sẵn sàng tắm nước ấm và ngủ sâu giấc tối nay.</p>
+        <div class="summary-stats">
+          <div class="stat-box">
+            <span class="stat-val" id="sumDuration">40:29</span>
+            <span class="stat-lbl">Tổng thời gian</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val" id="sumReps">408</span>
+            <span class="stat-lbl">Tổng số nhịp</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val" id="sumVolume">6.840 kg</span>
+            <span class="stat-lbl">Tổng khối lượng tạ</span>
+          </div>
+        </div>
+        <button type="button" class="restart-workout-btn" id="restartAfterFinishBtn">↺ Đặt lại cho buổi tập tiếp theo</button>
+      </section>
+    </main>
+
+    <!-- Bottom One-Handed Control Deck -->
+    <footer class="control-deck">
+      <!-- Independent Audio Toggles -->
+      <div class="audio-toggles">
+        <button type="button" class="toggle-pill active" id="toggleVoiceBtn" aria-pressed="true">
+          <span class="toggle-icon" aria-hidden="true">🗣️</span>
+          <span>Giọng HLV: <strong id="voiceStateTxt">BẬT</strong></span>
+        </button>
+        <button type="button" class="toggle-pill active" id="toggleTickBtn" aria-pressed="true">
+          <span class="toggle-icon" aria-hidden="true">🪵</span>
+          <span>Nhịp Tích-Tắc: <strong id="tickStateTxt">BẬT</strong></span>
+        </button>
+      </div>
+
+      <!-- Primary Transport Controls -->
+      <div class="transport-row">
+        <button type="button" class="ctrl-btn ctrl-secondary" id="resetBtn" aria-label="Đặt lại từ đầu" title="Đặt lại">
+          <span class="ctrl-ico">↺</span>
+          <span class="ctrl-txt">Đặt lại</span>
+        </button>
+
+        <button type="button" class="ctrl-btn ctrl-secondary" id="prevBtn" aria-label="Lùi lại bài trước" title="Bài trước">
+          <span class="ctrl-ico">⏮</span>
+          <span class="ctrl-txt">Trước</span>
+        </button>
+
+        <button type="button" class="ctrl-btn ctrl-primary" id="playPauseBtn" aria-label="Bắt đầu hoặc tạm dừng">
+          <span class="ctrl-ico" id="playPauseIco">▶</span>
+          <span class="ctrl-txt" id="playPauseTxt">BẮT ĐẦU</span>
+        </button>
+
+        <button type="button" class="ctrl-btn ctrl-secondary" id="skipBtn" aria-label="Chuyển qua bài tiếp theo" title="Bài tiếp">
+          <span class="ctrl-ico">⏭</span>
+          <span class="ctrl-txt">Tiếp</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Plan Schedule & Live JSON Customizer Drawer -->
+  <div class="drawer-backdrop" id="planDrawer" hidden>
+    <div class="drawer-sheet" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <div class="drawer-top">
+        <div>
+          <span class="drawer-kicker">CẤU HÌNH ĐỘC LẬP • WORKOUT-PLAN.JSON</span>
+          <h2 id="drawerTitle">Giáo án 40 Phút (8 Vòng)</h2>
+        </div>
+        <button type="button" class="drawer-close" id="closePlanDrawerBtn" aria-label="Đóng">✕</button>
+      </div>
+
+      <div class="drawer-tabs" role="tablist">
+        <button type="button" class="drawer-tab active" data-tab="timeline" role="tab">Lộ trình &amp; Chuyển nhanh</button>
+        <button type="button" class="drawer-tab" data-tab="customize" role="tab">Tùy chỉnh tạ &amp; nhịp</button>
+        <button type="button" class="drawer-tab" data-tab="json" role="tab">JSON gốc</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Tab 1: Interactive Timeline -->
+        <div class="tab-pane active" id="tabTimeline">
+          <p class="drawer-hint">Chạm vào bất kỳ giai đoạn hoặc vòng nào để nhảy trực tiếp tới trạm đó.</p>
+          <div class="timeline-list" id="timelineList"></div>
+        </div>
+
+        <!-- Tab 2: Visual Customizer -->
+        <div class="tab-pane" id="tabCustomize" hidden>
+          <div class="custom-group">
+            <h3>Thời lượng Khởi động &amp; Hạ nhiệt</h3>
+            <div class="field-grid-2">
+              <label class="field-item">
+                <span>Khởi động (giây)</span>
+                <input type="number" id="cfgWarmupSec" min="0" max="900" step="10">
+              </label>
+              <label class="field-item">
+                <span>Hạ nhiệt (giây)</span>
+                <input type="number" id="cfgCooldownSec" min="0" max="900" step="10">
+              </label>
+            </div>
+          </div>
+
+          <div class="custom-group">
+            <h3>Số nhịp &amp; Tốc độ từng bài</h3>
+            <div id="exerciseConfigList" class="exercise-cfg-list"></div>
+          </div>
+
+          <div class="custom-group">
+            <div class="rounds-cfg-header">
+              <h3>Phân bổ tạ qua các vòng</h3>
+              <div class="round-count-ctrl">
+                <button type="button" class="mini-btn" id="removeRoundBtn">− Vòng</button>
+                <span id="cfgRoundCountLabel">8 vòng</span>
+                <button type="button" class="mini-btn" id="addRoundBtn">+ Vòng</button>
+              </div>
+            </div>
+            <div id="roundsConfigList" class="rounds-cfg-list"></div>
+          </div>
+
+          <div class="drawer-actions">
+            <button type="button" class="btn-outline-danger" id="resetDefaultPlanBtn">Khôi phục chuẩn 40p</button>
+            <button type="button" class="btn-save-plan" id="saveCustomPlanBtn">Lưu &amp; Áp dụng</button>
+          </div>
+        </div>
+
+        <!-- Tab 3: Raw JSON Editor -->
+        <div class="tab-pane" id="tabJson" hidden>
+          <p class="drawer-hint">Dữ liệu giáo án được tách biệt hoàn toàn dưới dạng JSON. Bạn có thể chỉnh sửa trực tiếp hoặc sao lưu:</p>
+          <textarea id="rawJsonTextarea" class="json-editor" spellcheck="false" rows="14"></textarea>
+          <p class="json-error" id="jsonErrorMsg" hidden></p>
+          <div class="drawer-actions">
+            <button type="button" class="btn-outline-danger" id="resetJsonDefaultBtn">Mặc định gốc</button>
+            <button type="button" class="btn-save-plan" id="applyRawJsonBtn">Áp dụng JSON</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Toast / Modal for Reset mid-workout -->
+  <div class="confirm-backdrop" id="resetConfirmModal" hidden>
+    <div class="confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="confirmResetTitle">
+      <h3 id="confirmResetTitle">Đặt lại buổi tập từ đầu?</h3>
+      <p>Tiến độ vòng tập hiện tại sẽ quay về phần Khởi động (00:00).</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn-cancel" id="cancelResetBtn">Hủy</button>
+        <button type="button" class="btn-confirm-danger" id="confirmResetBtn">Đặt lại</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

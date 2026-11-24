@@ -1,0 +1,64 @@
+{
+  "portalTitle": "My Apps",
+  "portalSubtitle": "Không gian ứng dụng gia đình • Chạy mượt Offline trên iOS, iPadOS & Android",
+  "version": "1.0.0",
+  "categories": [
+    { "id": "all", "label": "Tất cả" },
+    { "id": "personal", "label": "Cá nhân" },
+    { "id": "son", "label": "Con trai" },
+    { "id": "daughter", "label": "Con gái" },
+    { "id": "family", "label": "Gia đình" }
+  ],
+  "apps": [
+    {
+      "id": "gym-cardio-coach",
+      "name": "Gym Cardio Coach",
+      "shortName": "Gym Coach",
+      "tagline": "Giáo án PHA 40 phút • 8 vòng liên hoàn",
+      "description": "Huấn luyện viên tập tạ kết hợp Cardio tại nhà: nhịp gõ gỗ trầm ấm, giọng đọc HLV Tiếng Việt tự động nhắc mức tạ và giữ sáng màn hình xuyên suốt buổi tập.",
+      "path": "./gym/",
+      "icon": "./gym/icons/icon.svg",
+      "pngIcon": "./gym/icons/icon-192.png",
+      "category": "personal",
+      "categoryLabel": "Sức khỏe • Cá nhân",
+      "accent": "#FF5526",
+      "badge": "40 PHÚT • 8 VÒNG",
+      "status": "active",
+      "highlights": [
+        "Đẩy ngực • Kéo xô • Đá đùi • Gập bụng",
+        "Giọng HLV vi-VN & Nhịp gỗ Web Audio",
+        "PWA Offline • Wake Lock chống tắt màn hình"
+      ]
+    },
+    {
+      "id": "english-quest-son",
+      "name": "English Quest",
+      "shortName": "English",
+      "tagline": "Từ vựng & Phản xạ Tiếng Anh cho con trai",
+      "description": "Slot mở rộng dành cho ứng dụng luyện phát âm và thẻ từ vựng tương tác. Chỉ cần tạo thư mục ./english/ và đổi status sang active.",
+      "path": "./english/",
+      "icon": "",
+      "category": "son",
+      "categoryLabel": "Học tập • Con trai",
+      "accent": "#38BDF8",
+      "badge": "SẮP RA MẮT",
+      "status": "planned",
+      "emoji": "🚀"
+    },
+    {
+      "id": "kids-play-daughter",
+      "name": "Wonder Play & Learn",
+      "shortName": "Wonder",
+      "tagline": "Trò chơi tư duy & Sáng tạo cho con gái",
+      "description": "Slot mở rộng dành cho mini-game rèn luyện trí nhớ, màu sắc và âm nhạc trên iPad. Chỉ cần tạo thư mục ./wonder/ và đổi status sang active.",
+      "path": "./wonder/",
+      "icon": "",
+      "category": "daughter",
+      "categoryLabel": "Khám phá • Con gái",
+      "accent": "#F472B6",
+      "badge": "SẮP RA MẮT",
+      "status": "planned",
+      "emoji": "🎨"
+    }
+  ]
+}

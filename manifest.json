@@ -1,0 +1,39 @@
+{
+  "id": "./",
+  "name": "My Apps — Không gian Gia đình",
+  "short_name": "My Apps",
+  "description": "Cổng khởi chạy nhanh các ứng dụng PWA gia đình (Gym Cardio Coach, học tập, tiện ích cá nhân) trên iOS, iPadOS & Android.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090D16",
+  "theme_color": "#090D16",
+  "lang": "vi-VN",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

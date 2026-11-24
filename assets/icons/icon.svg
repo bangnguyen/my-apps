@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#131B2E"/>
+      <stop offset="100%" stop-color="#070A12"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="28%" cy="22%" r="70%">
+      <stop offset="0%" stop-color="#FF5526" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#FF5526" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+  <!-- Tile 1: Gym Coral -->
+  <rect x="88" y="88" width="154" height="154" rx="42" fill="#FF5526"/>
+  <path d="M124 165H150L161 134L175 196L186 165H206" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Tile 2: Learning Cyan -->
+  <rect x="270" y="88" width="154" height="154" rx="42" fill="#38BDF8"/>
+  <circle cx="347" cy="165" r="28" fill="#0B0F17"/>
+  <!-- Tile 3: Emerald -->
+  <rect x="88" y="270" width="154" height="154" rx="42" fill="#10E87A"/>
+  <rect x="133" y="340" width="64" height="14" rx="7" fill="#0B0F17"/>
+  <!-- Tile 4: Modular Plus -->
+  <rect x="270" y="270" width="154" height="154" rx="42" fill="#1E293B" stroke="#94A3B8" stroke-opacity="0.45" stroke-width="6"/>
+  <path d="M347 318V376M318 347H376" stroke="#F8FAFC" stroke-width="14" stroke-linecap="round"/>
+</svg>
