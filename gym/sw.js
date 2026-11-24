@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'my-apps-gym-';
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 
 const GYM_ASSETS = [
   './',
@@ -7,6 +7,7 @@ const GYM_ASSETS = [
   './manifest.json',
   './workout-plan.json',
   './styles.css',
+  './music-engine.js',
   './app.js',
   './icons/icon.svg',
   './icons/apple-touch-icon.png',

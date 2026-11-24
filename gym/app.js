@@ -340,13 +340,31 @@
 
         utter.pitch = 1.0;
         utter.volume = 1.0;
+
+        // Auto-duck background gym music while Coach speaks!
+        if (typeof this.onSpeakState === 'function') {
+          this.onSpeakState(true, text.length);
+        }
+
+        utter.onend = () => {
+          if (typeof this.onSpeakState === 'function') {
+            this.onSpeakState(false, 0);
+          }
+        };
+
         utter.onerror = () => {
+          if (typeof this.onSpeakState === 'function') {
+            this.onSpeakState(false, 0);
+          }
           // Graceful chime fallback if OS TTS fails mid-session
           this.soundEngine.playTransitionChime('work');
         };
 
         window.speechSynthesis.speak(utter);
       } catch (_) {
+        if (typeof this.onSpeakState === 'function') {
+          this.onSpeakState(false, 0);
+        }
         this.soundEngine.playTransitionChime('work');
       }
     }
@@ -723,8 +741,69 @@
     resetJsonDefaultBtn: document.getElementById('resetJsonDefaultBtn'),
     resetConfirmModal: document.getElementById('resetConfirmModal'),
     cancelResetBtn: document.getElementById('cancelResetBtn'),
-    confirmResetBtn: document.getElementById('confirmResetBtn')
+    confirmResetBtn: document.getElementById('confirmResetBtn'),
+    // Gym Background Music Elements
+    bgmBar: document.getElementById('bgmBar'),
+    bgmToggleBtn: document.getElementById('bgmToggleBtn'),
+    bgmToggleTxt: document.getElementById('bgmToggleTxt'),
+    bgmOpenListBtn: document.getElementById('bgmOpenListBtn'),
+    bgmTrackTitle: document.getElementById('bgmTrackTitle'),
+    bgmTrackSub: document.getElementById('bgmTrackSub'),
+    bgmPrevBtn: document.getElementById('bgmPrevBtn'),
+    bgmNextBtn: document.getElementById('bgmNextBtn'),
+    bgmPlaylistModal: document.getElementById('bgmPlaylistModal'),
+    closeBgmModalBtn: document.getElementById('closeBgmModalBtn'),
+    bgmVolSlider: document.getElementById('bgmVolSlider'),
+    bgmVolLabel: document.getElementById('bgmVolLabel'),
+    bgmTrackList: document.getElementById('bgmTrackList')
   };
+
+  let bgmResumeOnContinue = false;
+  let duckSafetyTimer = null;
+
+  const bgm = window.GymMusicEngine
+    ? new window.GymMusicEngine(
+        () => sound.ensureContext(),
+        (state) => {
+          dom.bgmBar.classList.toggle('playing', state.isPlaying);
+          dom.bgmToggleBtn.classList.toggle('active', state.isPlaying);
+          dom.bgmToggleBtn.setAttribute('aria-pressed', String(state.isPlaying));
+          dom.bgmToggleTxt.textContent = state.isPlaying ? 'Tắt nhạc' : 'Bật nhạc';
+          dom.bgmTrackTitle.textContent = `${state.trackIndex + 1}/${state.totalTracks} • ${state.track.name}`;
+          dom.bgmTrackSub.textContent = `${state.track.genre} ▾`;
+          const pct = Math.round(state.volume * 100);
+          dom.bgmVolSlider.value = String(pct);
+          dom.bgmVolLabel.textContent = `${pct}%`;
+          renderBgmPlaylistItems();
+        }
+      )
+    : null;
+
+  function renderBgmPlaylistItems() {
+    if (!bgm || !dom.bgmTrackList) return;
+    dom.bgmTrackList.innerHTML = bgm.tracks
+      .map(
+        (tr, idx) => `
+        <button type="button" class="bgm-track-item ${idx === bgm.trackIndex ? 'selected' : ''}" data-bgm-idx="${idx}">
+          <div>
+            <div class="bgm-item-name">${idx + 1}. ${tr.name}</div>
+            <div class="bgm-item-genre">${tr.genre}</div>
+          </div>
+          <span class="bgm-item-badge">${idx === bgm.trackIndex && bgm.isPlaying ? '▶ ĐANG PHÁT' : tr.badge}</span>
+        </button>`
+      )
+      .join('');
+
+    dom.bgmTrackList.querySelectorAll('[data-bgm-idx]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sound.unlock();
+        const idx = Number(btn.dataset.bgmIdx);
+        bgm.selectTrack(idx, true);
+        bgmResumeOnContinue = true;
+        saveAudioPrefs();
+      });
+    });
+  }
 
   const voice = new VoiceCoach(sound, (mode, viVoice) => {
     if (mode === 'vi') {
@@ -736,6 +815,22 @@
       dom.voiceEngineTag.textContent = 'Fallback: Chuông báo chuyển trạm';
     }
   });
+
+  voice.onSpeakState = (speaking, charLen) => {
+    if (!bgm) return;
+    if (duckSafetyTimer) {
+      clearTimeout(duckSafetyTimer);
+      duckSafetyTimer = null;
+    }
+    if (speaking) {
+      bgm.setDucked(true);
+      // Safety restore in case mobile browser drops utter.onend
+      const estMs = Math.min(7000, Math.max(2400, charLen * 85));
+      duckSafetyTimer = setTimeout(() => bgm.setDucked(false), estMs);
+    } else {
+      bgm.setDucked(false);
+    }
+  };
 
   const wakeLock = new WakeLockManager((locked, status) => {
     dom.wakeBadge.classList.toggle('locked', locked);
@@ -1043,6 +1138,9 @@
       isRunning = false;
       isFinished = true;
       stopLoop();
+      if (bgm && bgm.isPlaying) {
+        bgm.stop();
+      }
       sound.playTransitionChime('finish');
       setTimeout(() => {
         voice.speak(
@@ -1133,6 +1231,9 @@
       hasStartedSession = true;
       isRunning = true;
       wakeLock.acquire();
+      if (bgm && bgmResumeOnContinue && !bgm.isPlaying) {
+        bgm.start();
+      }
       startLoop();
 
       if (firstBoot) {
@@ -1146,6 +1247,10 @@
       isRunning = false;
       stopLoop();
       voice.stop();
+      if (bgm && bgm.isPlaying) {
+        bgmResumeOnContinue = true;
+        bgm.stop();
+      }
       wakeLock.release();
       renderCurrentState();
     }
@@ -1179,6 +1284,10 @@
     lastProcessedWholeSec = -1;
     stopLoop();
     voice.stop();
+    if (bgm && bgm.isPlaying) {
+      bgmResumeOnContinue = false;
+      bgm.stop();
+    }
     wakeLock.release();
     renderCurrentState();
   }
@@ -1193,8 +1302,13 @@
         const parsed = JSON.parse(raw);
         if (typeof parsed.voice === 'boolean') voice.enabled = parsed.voice;
         if (typeof parsed.tick === 'boolean') sound.tickEnabled = parsed.tick;
+        if (bgm) {
+          if (typeof parsed.bgmTrack === 'number') bgm.selectTrack(parsed.bgmTrack, false);
+          if (typeof parsed.bgmVol === 'number') bgm.setVolume(parsed.bgmVol);
+        }
       }
     } catch (_) {}
+    if (bgm) bgm._emit();
     syncAudioToggleButtons();
   }
 
@@ -1202,7 +1316,12 @@
     try {
       localStorage.setItem(
         STORAGE_PREFS_KEY,
-        JSON.stringify({ voice: voice.enabled, tick: sound.tickEnabled })
+        JSON.stringify({
+          voice: voice.enabled,
+          tick: sound.tickEnabled,
+          bgmTrack: bgm ? bgm.trackIndex : 0,
+          bgmVol: bgm ? bgm.volume : 0.55
+        })
       );
     } catch (_) {}
   }
@@ -1520,6 +1639,54 @@
     });
 
     dom.testAudioBtn.addEventListener('click', runAudioTestDemo);
+
+    // Gym Background Music Controls
+    if (bgm) {
+      dom.bgmToggleBtn.addEventListener('click', () => {
+        sound.unlock();
+        const nowPlaying = bgm.toggle();
+        bgmResumeOnContinue = nowPlaying;
+      });
+
+      dom.bgmNextBtn.addEventListener('click', () => {
+        sound.unlock();
+        bgm.nextTrack();
+        if (!bgm.isPlaying) {
+          bgm.start();
+          bgmResumeOnContinue = true;
+        }
+        saveAudioPrefs();
+      });
+
+      dom.bgmPrevBtn.addEventListener('click', () => {
+        sound.unlock();
+        bgm.prevTrack();
+        if (!bgm.isPlaying) {
+          bgm.start();
+          bgmResumeOnContinue = true;
+        }
+        saveAudioPrefs();
+      });
+
+      dom.bgmOpenListBtn.addEventListener('click', () => {
+        renderBgmPlaylistItems();
+        dom.bgmPlaylistModal.hidden = false;
+      });
+
+      dom.closeBgmModalBtn.addEventListener('click', () => {
+        dom.bgmPlaylistModal.hidden = true;
+      });
+
+      dom.bgmPlaylistModal.addEventListener('click', (e) => {
+        if (e.target === dom.bgmPlaylistModal) dom.bgmPlaylistModal.hidden = true;
+      });
+
+      dom.bgmVolSlider.addEventListener('input', () => {
+        const vol = Number(dom.bgmVolSlider.value) / 100;
+        bgm.setVolume(vol);
+        saveAudioPrefs();
+      });
+    }
 
     // Plan Drawer Controls
     dom.openPlanDrawerBtn.addEventListener('click', () => {

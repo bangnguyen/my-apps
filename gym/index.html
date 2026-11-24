@@ -164,6 +164,26 @@
 
     <!-- Bottom One-Handed Control Deck -->
     <footer class="control-deck">
+      <!-- Gym Background Music Player Bar -->
+      <div class="bgm-bar" id="bgmBar" aria-label="Trình phát nhạc nền phòng Gym">
+        <button type="button" class="bgm-power-btn" id="bgmToggleBtn" aria-pressed="false">
+          <span class="eq-bars" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <span id="bgmToggleTxt">Bật nhạc</span>
+        </button>
+
+        <button type="button" class="bgm-track-selector" id="bgmOpenListBtn" title="Chạm để chọn bài & chỉnh âm lượng nhạc">
+          <span class="bgm-track-title" id="bgmTrackTitle">1/6 • Iron Drift Phonk</span>
+          <span class="bgm-track-sub" id="bgmTrackSub">Gym Phonk • 130 BPM ▾</span>
+        </button>
+
+        <div class="bgm-nav-btns">
+          <button type="button" class="bgm-step-btn" id="bgmPrevBtn" aria-label="Bài nhạc trước" title="Bài trước">⏮</button>
+          <button type="button" class="bgm-step-btn" id="bgmNextBtn" aria-label="Đổi bài nhạc tiếp theo" title="Đổi bài">⏭</button>
+        </div>
+      </div>
+
       <!-- Independent Audio Toggles -->
       <div class="audio-toggles">
         <button type="button" class="toggle-pill active" id="toggleVoiceBtn" aria-pressed="true">
@@ -278,6 +298,30 @@
     </div>
   </div>
 
+  <!-- Gym Music Playlist & Volume Modal -->
+  <div class="drawer-backdrop" id="bgmPlaylistModal" hidden>
+    <div class="drawer-sheet bgm-sheet" role="dialog" aria-modal="true" aria-labelledby="bgmModalTitle">
+      <div class="drawer-top">
+        <div>
+          <span class="drawer-kicker">DJ GYM MIX • CHẠY OFFLINE 100%</span>
+          <h2 id="bgmModalTitle">Nhạc nền phòng Gym (6 Bài)</h2>
+        </div>
+        <button type="button" class="drawer-close" id="closeBgmModalBtn" aria-label="Đóng">✕</button>
+      </div>
+
+      <div class="bgm-vol-box">
+        <div class="bgm-vol-head">
+          <span>🔊 Âm lượng nhạc nền</span>
+          <strong id="bgmVolLabel">55%</strong>
+        </div>
+        <input type="range" id="bgmVolSlider" min="10" max="100" step="5" value="55" class="bgm-vol-slider">
+        <p class="bgm-duck-note">✨ Tự động hạ nhỏ nhạc nền mỗi khi Giọng HLV đọc thông báo chuyển hiệp.</p>
+      </div>
+
+      <div class="bgm-track-list" id="bgmTrackList"></div>
+    </div>
+  </div>
+
   <!-- Confirmation Toast / Modal for Reset mid-workout -->
   <div class="confirm-backdrop" id="resetConfirmModal" hidden>
     <div class="confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="confirmResetTitle">
@@ -290,6 +334,7 @@
     </div>
   </div>
 
+  <script src="./music-engine.js" defer></script>
   <script src="./app.js" defer></script>
 </body>
 </html>
