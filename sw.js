@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'my-apps-portal-';
-const CACHE_NAME = `${CACHE_PREFIX}v1`;
+const CACHE_NAME = `${CACHE_PREFIX}v2`;
 
 const CORE_ASSETS = [
   './',
@@ -37,6 +37,21 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+function fetchWithTimeout(request, timeoutMs = 3500) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('timeout')), timeoutMs);
+    fetch(request, { cache: 'no-cache' })
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
@@ -61,33 +76,35 @@ self.addEventListener('fetch', (event) => {
     }
   }
 
-  // Network-first for apps.json so newly added apps appear immediately when online
-  if (url.pathname.endsWith('/apps.json') || url.pathname === 'apps.json') {
-    event.respondWith(
-      fetch(request)
-        .then((res) => {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-          return res;
-        })
-        .catch(() => caches.match(request))
-    );
-    return;
-  }
+  const isStaticMedia = /\.(png|svg|woff2?|ttf|ico)$/i.test(url.pathname);
 
-  // Stale-while-revalidate for fast instant boot + background update
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      const networkFetch = fetch(request)
-        .then((res) => {
-          if (res && res.status === 200 && (res.type === 'basic' || res.type === 'cors')) {
+  if (isStaticMedia) {
+    // Cache-first for heavy icons & fonts
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((res) => {
+          if (res && res.status === 200) {
             const clone = res.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
           return res;
-        })
-        .catch(() => cached);
-      return cached || networkFetch;
-    })
+        });
+      })
+    );
+    return;
+  }
+
+  // Network-first (with fast offline fallback) for HTML/JS/CSS/JSON so every git push updates immediately!
+  event.respondWith(
+    fetchWithTimeout(request)
+      .then((res) => {
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+        }
+        return res;
+      })
+      .catch(() => caches.match(request))
   );
 });
