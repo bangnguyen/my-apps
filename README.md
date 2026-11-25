@@ -14,14 +14,22 @@ my-apps/
 ├── manifest.json           # PWA Manifest của Portal gốc
 ├── sw.js                   # Service Worker độc lập của Portal (namespace cache riêng)
 ├── assets/                 # Giao diện, logic và bộ icon Retina của Portal
-└── gym/                    # Ứng dụng #1: GYM CARDIO COACH (PWA Độc lập)
-    ├── index.html          # Giao diện Mobile-First hỗ trợ Dynamic Island / Safe Area
-    ├── manifest.json       # Manifest riêng để cài biểu tượng "Gym Coach" độc lập
-    ├── sw.js               # Service Worker lưu cache Offline toàn bộ ứng dụng Gym
-    ├── workout-plan.json   # Cấu hình JSON tách biệt (8 vòng PHA, mức tạ, số nhịp)
-    ├── styles.css          # Dark Mode tương phản cao phân tách màu theo trạng thái
-    ├── app.js              # Web Audio Woodblock Metronome + Giọng HLV vi-VN + Wake Lock
-    └── icons/              # Bộ icon SVG & PNG (180x180 iOS, 192x192, 512x512, Maskable)
+├── gym/                    # Ứng dụng #1: GYM CARDIO COACH (PWA Độc lập)
+│   ├── index.html          # Giao diện Mobile-First hỗ trợ Dynamic Island / Safe Area
+│   ├── manifest.json       # Manifest riêng để cài biểu tượng "Gym Coach" độc lập
+│   ├── sw.js               # Service Worker lưu cache Offline toàn bộ ứng dụng Gym
+│   ├── workout-plan.json   # Cấu hình JSON tách biệt (8 vòng PHA, mức tạ, số nhịp)
+│   ├── styles.css          # Dark Mode tương phản cao phân tách màu theo trạng thái
+│   ├── app.js              # Web Audio Woodblock Metronome + Giọng HLV vi-VN + Wake Lock
+│   └── icons/              # Bộ icon SVG & PNG (180x180 iOS, 192x192, 512x512, Maskable)
+└── abs-dumbbell/           # Ứng dụng #2: CORE & DUMBBELL 10KG COACH (PWA Độc lập)
+    ├── index.html          # Giao diện Dark Mode tối ưu nhìn từ xa trên sàn/ghế tập
+    ├── manifest.json       # Manifest riêng cài biểu tượng "Core 10kg" độc lập trên iPhone
+    ├── sw.js               # Service Worker Offline riêng namespace my-apps-abs-dumbbell-v1
+    ├── workout-plan.json   # Giáo án JSON 3 hoặc 5 vòng × 6 trạm (Tạ tay 10kg & Bụng)
+    ├── styles.css          # Phân tách màu Đỏ cam (Tập) / Xanh lá (Nghỉ) / Xanh dương (Khởi động)
+    ├── app.js              # Metronome gỗ 330–420Hz hỗ trợ nhịp 2.5s + nhắc đổi tay nhịp 8 + Wake Lock
+    └── icons/              # Bộ icon SVG & PNG riêng biệt (Cyan/Emerald 10KG Hex Dumbbell)
 ```
 
 ### Cách thêm một ứng dụng mới trong tương lai (2 bước)

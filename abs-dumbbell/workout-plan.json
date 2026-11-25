@@ -1,0 +1,155 @@
+{
+  "id": "core-dumbbell-10kg-v1",
+  "title": "Core & Dumbbell 10kg Coach",
+  "goal": "Luân phiên Tạ tay 10kg đốt calo toàn thân và cô lập cơ bụng giúp giữ nhịp tim cao & ngủ sâu giấc",
+  "defaultRounds": 5,
+  "roundPresets": [3, 5],
+  "endRoundRestSec": 40,
+  "warmup": {
+    "title": "Khởi động & Đánh thức Core",
+    "enTitle": "Joint Mobility & Core Wake-up",
+    "durationSec": 180,
+    "segments": [
+      {
+        "fromSec": 0,
+        "toSec": 60,
+        "cue": "Xoay eo rộng, xoay khớp vai, hông và cổ tay làm nóng toàn thân",
+        "voiceCue": "Xoay eo, xoay khớp vai, hông và cổ tay đều nhịp."
+      },
+      {
+        "fromSec": 60,
+        "toSec": 150,
+        "cue": "Gập người chạm mũi chân luân phiên & nâng gối kích hoạt nhịp tim",
+        "voiceCue": "Chuyển sang gập người chạm mũi chân luân phiên để kéo giãn gân kheo và làm ấm lưng."
+      },
+      {
+        "fromSec": 150,
+        "toSec": 180,
+        "cue": "Plank tĩnh 30 giây — gồng chặt cơ bụng, giữ thẳng lưng và hít thở đều",
+        "voiceCue": "30 giây cuối khởi động: vào tư thế Plank tĩnh, siết chặt cơ bụng đánh thức Core."
+      }
+    ]
+  },
+  "cooldown": {
+    "title": "Hạ nhiệt & Giãn cơ bụng lưng",
+    "enTitle": "Cool-down & Core Stretch",
+    "durationSec": 180,
+    "segments": [
+      {
+        "fromSec": 0,
+        "toSec": 60,
+        "cue": "Tư thế rắn hổ mang (Cobra Stretch) — chống tay đẩy ngực kéo giãn sâu cơ bụng",
+        "voiceCue": "Vào tư thế rắn hổ mang, đẩy nhẹ ngực lên để giãn toàn bộ cơ bụng và thở chậm."
+      },
+      {
+        "fromSec": 60,
+        "toSec": 120,
+        "cue": "Tư thế em bé (Child's Pose) — ngồi lùi về gót chân, thả lỏng hoàn toàn lưng dưới",
+        "voiceCue": "Chuyển sang tư thế em bé, vươn dài hai tay phía trước để thả lỏng lưng dưới."
+      },
+      {
+        "fromSec": 120,
+        "toSec": 180,
+        "cue": "Hít sâu bằng mũi 4 giây — thở chậm 6 giây hạ nhịp tim chuẩn bị giấc ngủ sâu",
+        "voiceCue": "Phút cuối hạ nhiệt: nằm thả lỏng, hít sâu bằng mũi và thở ra thật chậm."
+      }
+    ]
+  },
+  "exercises": {
+    "goblet_thruster": {
+      "id": "goblet_thruster",
+      "name": "Goblet Squat & Đẩy vai",
+      "enName": "Dumbbell Thruster 10kg",
+      "shortVoice": "Goblet Squat đẩy vai với tạ 10 cân",
+      "equipment": "Tạ tay 10 kg (2 tay)",
+      "weightKg": 10,
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 25,
+      "tempoLabels": ["Ngồi xổm", "Bật đứng", "Đẩy vai"],
+      "formTip": "Ôm tạ 10kg sát ngực, ngồi xổm sâu giữ thẳng lưng rồi bật đứng đẩy thẳng tạ qua đầu, thở mạnh khi đẩy."
+    },
+    "ab_crunch": {
+      "id": "ab_crunch",
+      "name": "Gập bụng chuẩn",
+      "enName": "Standard Ab Crunch",
+      "shortVoice": "gập bụng chuẩn trên dụng cụ tập bụng",
+      "equipment": "Dụng cụ tập bụng",
+      "weightKg": 0,
+      "reps": 15,
+      "secPerRep": 2,
+      "restAfterSec": 20,
+      "tempoLabels": ["Gập siết", "Hạ chậm"],
+      "formTip": "Siết chặt cơ bụng trên, thở ra mạnh khi nâng vai lên và không dùng tay kéo cổ."
+    },
+    "russian_twist": {
+      "id": "russian_twist",
+      "name": "Vặn sườn Nga 10kg",
+      "enName": "Dumbbell Russian Twist",
+      "shortVoice": "vặn sườn với tạ 10 cân",
+      "equipment": "Tạ tay 10 kg • 8 nhịp/bên",
+      "weightKg": 10,
+      "reps": 16,
+      "secPerRep": 2,
+      "restAfterSec": 25,
+      "alternatingSides": true,
+      "tempoLabels": ["Xoay siết", "Đổi bên"],
+      "formTip": "Ngồi ngả lưng 45 độ, ôm tạ 10kg xoay sâu đều sang hai bên trái - phải để siết chặt cơ liên sườn."
+    },
+    "leg_raise": {
+      "id": "leg_raise",
+      "name": "Nâng chân bụng dưới",
+      "enName": "Controlled Leg Raise",
+      "shortVoice": "nâng chân tập bụng dưới",
+      "equipment": "Sàn / Ghế tập bụng",
+      "weightKg": 0,
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 20,
+      "tempoLabels": ["Nâng lên", "Siết bụng", "Hạ chậm"],
+      "formTip": "Ép sát lưng dưới xuống sàn hoặc ghế, nâng hạ hai chân có kiểm soát không để võng lưng."
+    },
+    "single_arm_row": {
+      "id": "single_arm_row",
+      "name": "Chèo tạ 1 tay Plank",
+      "enName": "Single-Arm Dumbbell Row",
+      "shortVoice": "chèo tạ 1 tay 10 cân",
+      "equipment": "Tạ tay 10 kg • Đổi tay nhịp 8",
+      "weightKg": 10,
+      "reps": 16,
+      "secPerRep": 2.5,
+      "restAfterSec": 25,
+      "switchSideAtRep": 8,
+      "tempoLabels": ["Kéo sát hông", "Hạ kiểm soát"],
+      "formTip": "Chống một tay trên ghế hoặc tư thế Plank, kéo tạ 10kg sát hông giữ cứng cơ bụng chống xoay người. Đổi tay tại nhịp 8."
+    },
+    "weighted_crunch": {
+      "id": "weighted_crunch",
+      "name": "Gập bụng giữ tạ 10kg",
+      "enName": "Weighted Crunch / Toe Reach",
+      "shortVoice": "gập bụng giữ tạ 10 cân",
+      "equipment": "Tạ tay 10 kg • Sàn",
+      "weightKg": 10,
+      "reps": 12,
+      "secPerRep": 3,
+      "restAfterSec": 40,
+      "tempoLabels": ["Đẩy lên trần", "Siết đỉnh", "Hạ chậm"],
+      "formTip": "Hai tay ôm tạ 10kg đẩy thẳng hướng lên trần nhà theo nhịp gập bụng, giữ vai tách khỏi sàn 1 nhịp rồi hạ chậm."
+    }
+  },
+  "exerciseOrder": [
+    "goblet_thruster",
+    "ab_crunch",
+    "russian_twist",
+    "leg_raise",
+    "single_arm_row",
+    "weighted_crunch"
+  ],
+  "roundLabels": [
+    { "phaseLabel": "Khởi tốc Core", "enPhaseLabel": "Core Ignition" },
+    { "phaseLabel": "Đẩy nhịp Cardio", "enPhaseLabel": "Cardio Drive" },
+    { "phaseLabel": "Siết sâu trung tâm", "enPhaseLabel": "Deep Core Burn" },
+    { "phaseLabel": "Đỉnh sức bền", "enPhaseLabel": "Peak Endurance" },
+    { "phaseLabel": "Bứt phá về đích", "enPhaseLabel": "Final Burnout" }
+  ]
+}

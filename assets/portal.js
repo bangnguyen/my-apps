@@ -26,6 +26,24 @@
           'Giọng HLV vi-VN & Nhịp gỗ Web Audio',
           'PWA Offline • Wake Lock chống tắt màn hình'
         ]
+      },
+      {
+        id: 'core-dumbbell-10kg-coach',
+        name: 'Core & Dumbbell 10kg Coach',
+        tagline: 'Bụng & Tạ tay 10kg • 3–5 vòng Cardio Core',
+        description: 'Huấn luyện viên giọng nói Tiếng Việt & nhịp gõ gỗ tích-tắc cho bài tập cơ bụng kết hợp tạ tay 10kg tại nhà, tự nhắc đổi tay ở nhịp 8 và giữ sáng màn hình.',
+        path: './abs-dumbbell/',
+        icon: './abs-dumbbell/icons/icon.svg',
+        category: 'personal',
+        categoryLabel: 'Sức khỏe • Cá nhân',
+        accent: '#06B6D4',
+        badge: '3–5 VÒNG • 10KG CORE',
+        status: 'active',
+        highlights: [
+          '6 trạm liên hoàn Tạ 10kg & Dụng cụ tập bụng',
+          'Nhịp gỗ Web Audio + Giọng HLV vi-VN nhắc đổi tay',
+          'PWA Độc lập Offline • Screen Wake Lock'
+        ]
       }
     ]
   };

@@ -1,0 +1,40 @@
+{
+  "id": "./",
+  "name": "Core & Dumbbell 10kg Coach",
+  "short_name": "Core 10kg",
+  "description": "Huấn luyện viên giọng nói vi-VN & nhịp gỗ tích-tắc chuyên sâu cho giáo án Bụng & Tạ tay 10kg (3–5 vòng Cardio Core) tại nhà.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#060A11",
+  "theme_color": "#060A11",
+  "lang": "vi-VN",
+  "categories": ["fitness", "health", "lifestyle"],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

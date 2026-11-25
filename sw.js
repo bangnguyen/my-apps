@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'my-apps-portal-';
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 
 const CORE_ASSETS = [
   './',
@@ -14,7 +14,9 @@ const CORE_ASSETS = [
   './assets/icons/icon-512.png',
   './assets/icons/icon-maskable-512.png',
   './gym/icons/icon.svg',
-  './gym/icons/icon-192.png'
+  './gym/icons/icon-192.png',
+  './abs-dumbbell/icons/icon.svg',
+  './abs-dumbbell/icons/icon-192.png'
 ];
 
 self.addEventListener('install', (event) => {
